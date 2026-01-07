@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import metricsData from '../data/metrics.json';
 
 export interface YouTubeMetrics {
   subscriberCount: string;
@@ -8,10 +9,10 @@ export interface YouTubeMetrics {
 }
 
 const FALLBACK_DATA: YouTubeMetrics = {
-  subscriberCount: "20.3K",
-  viewCount: "759K",
-  videoCount: "196+",
-  engagementRate: "4.8%"
+  subscriberCount: metricsData.global.totalProfessionals,
+  viewCount: metricsData.channel.viewCount,
+  videoCount: metricsData.channel.videoCount,
+  engagementRate: metricsData.channel.engagementRate
 };
 
 export const useYouTubeMetrics = () => {

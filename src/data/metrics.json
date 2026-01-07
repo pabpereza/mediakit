@@ -1,0 +1,77 @@
+{
+  "_meta": {
+    "description": "Métricas centralizadas del Media Kit - Editable por automatismos",
+    "lastUpdated": "2026-01-07",
+    "version": "1.0.0"
+  },
+
+  "channel": {
+    "viewCount": "759K",
+    "videoCount": "196+",
+    "engagementRate": "5.4%",
+    "subscribersTrend": "+25%",
+    "monthlyViews": "30K",
+    "newVideosPerMonth": "4"
+  },
+
+  "audience": {
+    "seniority": {
+      "seniorStaff": "35%",
+      "leadArchitect": "10%",
+      "managerDirector": "5%",
+      "midLevel": "30%",
+      "junior": "20%",
+      "seniorOrAboveTotal": "50%"
+    },
+    "jobTitles": {
+      "devopsEngineer": "25%",
+      "srePlatform": "15%",
+      "securityEngineer": "10%",
+      "cloudArchitect": "5%",
+      "backendDeveloper": "20%",
+      "sysadminItOps": "20%",
+      "ctoVpEngineering": "3%",
+      "cisoSecManager": "2%"
+    },
+    "geography": {
+      "spain": "23%",
+      "mexico": "13%",
+      "argentina": "12%",
+      "colombia": "11%",
+      "chile": "9%",
+      "otherLatam": "32%",
+      "spainTotal": "23%",
+      "latamTotal": "77%"
+    },
+    "retention": {
+      "averageRetention": "40%",
+      "averageWatchTime": "4:30",
+      "retentionCurve": [95, 85, 75, 65, 60, 55, 50, 45, 40, 35]
+    },
+    "techStack": {
+      "kubernetes": "75%",
+      "docker": "85%",
+      "terraform": "40%",
+      "cloudProviders": "AWS 60% / Azure 30%",
+      "cicd": "70%",
+      "linux": "95%"
+    }
+  },
+
+  "global": {
+    "totalProfessionals": "20.3K",
+    "decisionMakersPercentage": "15%"
+  },
+
+  "hero": {
+    "seniorLeadPercentage": "50%"
+  },
+
+  "authority": {
+    "yearsExperience": "9"
+  },
+
+  "sponsorships": {
+    "linkedinNetwork": "+4.000"
+  }
+}

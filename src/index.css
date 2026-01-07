@@ -1,3 +1,6 @@
+/* Import monospace font for terminal aesthetic */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,5 +8,178 @@
 @layer base {
   body {
     @apply bg-slate-950 text-slate-50;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  /* Terminal/Monospace styling */
+  .font-mono, code, pre, [class*="font-mono"] {
+    font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+  }
+
+  /* Custom scrollbar for dark theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-600;
+  }
+
+  /* Selection color - cyberpunk accent */
+  ::selection {
+    @apply bg-emerald-500/30 text-white;
+  }
+}
+
+@layer components {
+  /* Neon glow effects */
+  .glow-emerald {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3),
+                0 0 40px rgba(16, 185, 129, 0.1);
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3),
+                0 0 40px rgba(6, 182, 212, 0.1);
+  }
+
+  /* Terminal cursor blink */
+  .terminal-cursor {
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* Gradient text utility */
+  .text-gradient-neon {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400;
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    @apply transition-all duration-300 hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Smooth scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Print styles for PDF export */
+@media print {
+  /* Force print backgrounds and colors */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  html, body {
+    background: #020617 !important; /* slate-950 */
+    color: #f8fafc !important; /* slate-50 */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide interactive elements */
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Preserve backgrounds */
+  [class*="bg-slate"], 
+  [class*="bg-emerald"], 
+  [class*="bg-cyan"],
+  [class*="bg-gradient"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Ensure gradients render */
+  .bg-gradient-to-r,
+  .bg-gradient-to-br,
+  .bg-gradient-to-t {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Page settings */
+  @page {
+    size: A4;
+    margin: 0.5cm;
+  }
+
+  /* Avoid page breaks inside sections */
+  section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Keep cards together */
+  [class*="rounded-2xl"],
+  [class*="rounded-xl"] {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Remove shadows that don't print well */
+  [class*="shadow-"] {
+    box-shadow: none !important;
+  }
+
+  /* Ensure borders are visible */
+  [class*="border-"] {
+    border-color: #334155 !important; /* slate-700 */
+  }
+
+  /* Keep decorative backgrounds hidden in print (they cause issues) */
+  .absolute.-z-10 {
+    display: none !important;
+  }
+
+  /* Ensure text colors are preserved */
+  .text-white { color: #ffffff !important; }
+  .text-slate-50 { color: #f8fafc !important; }
+  .text-slate-300 { color: #cbd5e1 !important; }
+  .text-slate-400 { color: #94a3b8 !important; }
+  .text-slate-500 { color: #64748b !important; }
+  .text-emerald-400 { color: #34d399 !important; }
+  .text-cyan-400 { color: #22d3ee !important; }
+
+  /* Background colors */
+  .bg-slate-900 { background-color: #0f172a !important; }
+  .bg-slate-950 { background-color: #020617 !important; }
+  .bg-emerald-500\/10 { background-color: rgba(16, 185, 129, 0.1) !important; }
+  .bg-cyan-500\/10 { background-color: rgba(6, 182, 212, 0.1) !important; }
+
+  /* Gradient text - fallback to solid color */
+  .text-transparent.bg-clip-text {
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 }
