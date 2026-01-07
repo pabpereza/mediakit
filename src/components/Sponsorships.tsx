@@ -1,8 +1,10 @@
 import { Video, Rocket, CheckCircle2, Zap, Shield, BarChart3 } from 'lucide-react';
 import { useMetricsConfig } from '../hooks/useMetricsConfig';
+import { useLanguage } from '../i18n';
 
 export const Sponsorships = () => {
   const config = useMetricsConfig();
+  const { t } = useLanguage();
   
   return (
     <section className="py-12 px-6 md:px-12 max-w-7xl mx-auto">
@@ -10,13 +12,13 @@ export const Sponsorships = () => {
       <div className="text-center space-y-4 mb-16">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900/80 border border-cyan-500/30 rounded-full font-mono text-sm">
           <span className="text-cyan-400">$</span>
-          <span className="text-slate-400">cat ./sponsorship-packages.yml</span>
+          <span className="text-slate-400">{t.sponsorships.command}</span>
         </div>
         <h2 className="text-3xl md:text-4xl font-bold text-white">
-          Formatos de <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Colaboración</span>
+          {t.sponsorships.sectionTitle} <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">{t.sponsorships.sectionTitleHighlight}</span>
         </h2>
         <p className="text-slate-400 max-w-2xl mx-auto">
-          Diferentes opciones para adaptarnos a tus objetivos y presupuesto.
+          {t.sponsorships.sectionSubtitle}
         </p>
       </div>
       
@@ -25,58 +27,45 @@ export const Sponsorships = () => {
         <PackageCard 
           icon={<Video className="w-8 h-8" />}
           iconBg="emerald"
-          title="Deep Dive Técnico"
-          subtitle="Video Dedicado 100%"
-          price="Consultar"
-          priceNote="Inversión personalizada"
-          description="Tutorial completo de 15-25 min explorando tu producto en profundidad. Demo real, casos de uso enterprise y troubleshooting."
-          features={[
-            "Producción premium (4K, edición profesional)",
-            "Guión co-creado con tu equipo de producto",
-            "SEO optimizado para long-tail técnico",
-            "Promoción cruzada en LinkedIn + Twitter",
-            "Contenido evergreen (leads durante +2 años)"
-          ]}
+          title={t.sponsorships.deepDive}
+          subtitle={t.sponsorships.deepDiveSubtitle}
+          price={t.sponsorships.deepDivePrice}
+          priceNote={t.sponsorships.deepDivePriceNote}
+          description={t.sponsorships.deepDiveDesc}
+          features={t.sponsorships.features.deepDive as unknown as string[]}
           highlight={false}
-          cta="Ideal para lanzamientos y productos flagship"
+          cta={t.sponsorships.deepDiveCta}
+          mostPopularLabel={t.sponsorships.mostPopular}
         />
         
         <PackageCard 
           icon={<Zap className="w-8 h-8" />}
           iconBg="cyan"
-          title="Integración Nativa"
-          subtitle="Mención en Tutorial Evergreen"
-          price="Consultar"
-          priceNote="Mejor ratio calidad/precio"
-          description="Segmento de 60-120 segundos integrado orgánicamente en tutoriales técnicos de alto tráfico. Sin sensación de publicidad."
-          features={[
-            "Integración natural en el flujo del tutorial",
-            "Posicionamiento en vídeos de alta retención",
-            "Asociación con contenido educativo valorado",
-            "Múltiples menciones disponibles (pack)",
-            "Ideal para brand awareness continuo"
-          ]}
+          title={t.sponsorships.integration}
+          subtitle={t.sponsorships.integrationSubtitle}
+          price={t.sponsorships.integrationPrice}
+          priceNote={t.sponsorships.integrationPriceNote}
+          description={t.sponsorships.integrationDesc}
+          features={t.sponsorships.features.integration as unknown as string[]}
           highlight={true}
-          cta="⚡ Más solicitado por SaaS y Cloud Providers"
+          cta={t.sponsorships.integrationCta}
+          mostPopularLabel={t.sponsorships.mostPopular}
         />
         
         <PackageCard 
           icon={<Rocket className="w-8 h-8" />}
           iconBg="emerald"
-          title="Campaña Full-Stack"
-          subtitle="Paquete Multi-Plataforma"
-          price="Consultar"
-          priceNote="Máximo impacto"
-          description="Estrategia completa: Video dedicado + integraciones + amplificación social. Para campañas de lanzamiento o Q4 push."
-          features={[
-            "1 Video dedicado + 3 integraciones",
-            "Amplificación LinkedIn (red +" + config.sponsorships.linkedinNetwork + "K profesionales)",
-            "Thread técnico en Twitter/X",
-            "Mención en newsletter (si aplica)",
-            "Reporting de métricas post-campaña"
-          ]}
+          title={t.sponsorships.campaign}
+          subtitle={t.sponsorships.campaignSubtitle}
+          price={t.sponsorships.campaignPrice}
+          priceNote={t.sponsorships.campaignPriceNote}
+          description={t.sponsorships.campaignDesc}
+          features={(t.sponsorships.features.campaign as unknown as string[]).map(f => 
+            f.replace('{linkedinNetwork}', config.sponsorships.linkedinNetwork)
+          )}
           highlight={false}
-          cta="Para campañas de lanzamiento o proyectos grandes"
+          cta={t.sponsorships.campaignCta}
+          mostPopularLabel={t.sponsorships.mostPopular}
         />
       </div>
 
@@ -87,25 +76,25 @@ export const Sponsorships = () => {
             <BarChart3 className="w-5 h-5 text-emerald-400" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-white font-mono">// Por qué funciona este tipo de contenido</h3>
+            <h3 className="text-xl font-bold text-white font-mono">{t.sponsorships.whyItWorks}</h3>
           </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <ROIPoint 
             icon={<Shield className="w-5 h-5 text-emerald-400" />}
-            title="Audiencia Técnica"
-            description="Mi audiencia está formada por profesionales IT que buscan herramientas para resolver problemas reales en su trabajo."
+            title={t.sponsorships.technicalAudience}
+            description={t.sponsorships.technicalAudienceDesc}
           />
           <ROIPoint 
             icon={<Video className="w-5 h-5 text-cyan-400" />}
-            title="Contenido Duradero"
-            description="Los tutoriales técnicos siguen siendo útiles y relevantes mucho tiempo después de su publicación."
+            title={t.sponsorships.durableContentTitle}
+            description={t.sponsorships.durableContentDesc}
           />
           <ROIPoint 
             icon={<Zap className="w-5 h-5 text-emerald-400" />}
-            title="Contexto Real"
-            description="Las menciones se integran de forma natural en contenido educativo, no como anuncios intrusivos."
+            title={t.sponsorships.realContext}
+            description={t.sponsorships.realContextDesc}
           />
         </div>
       </div>
@@ -124,7 +113,8 @@ const PackageCard = ({
   description,
   features,
   highlight,
-  cta
+  cta,
+  mostPopularLabel
 }: { 
   icon: React.ReactNode, 
   iconBg: 'emerald' | 'cyan',
@@ -135,7 +125,8 @@ const PackageCard = ({
   description: string,
   features: string[],
   highlight: boolean,
-  cta: string
+  cta: string,
+  mostPopularLabel: string
 }) => (
   <div className={`relative bg-slate-900 border rounded-2xl p-8 transition-all duration-300 ${
     highlight 
@@ -145,7 +136,7 @@ const PackageCard = ({
     {highlight && (
       <div className="absolute -top-3 left-1/2 -translate-x-1/2">
         <span className="px-4 py-1 bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 text-xs font-bold rounded-full">
-          MÁS POPULAR
+          {mostPopularLabel}
         </span>
       </div>
     )}

@@ -1,8 +1,10 @@
 import { Youtube, Linkedin, Globe, Mail, ArrowRight, Terminal } from 'lucide-react';
 import { useMetricsConfig } from '../hooks/useMetricsConfig';
+import { useLanguage } from '../i18n';
 
 export const Footer = () => {
   const config = useMetricsConfig();
+  const { t } = useLanguage();
   
   return (
     <footer className="border-t border-slate-900 bg-slate-950 mt-12 print:hidden">
@@ -19,19 +21,19 @@ export const Footer = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-950/80 border border-emerald-500/30 rounded-full mb-8 font-mono text-sm">
             <Terminal className="w-4 h-4 text-emerald-400" />
             <span className="text-emerald-400">$</span>
-            <span className="text-slate-400">./start-partnership.sh</span>
+            <span className="text-slate-400">{t.footer.command}</span>
           </div>
           
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 relative">
-            ¿Te interesa <br className="hidden md:block" />
+            {t.footer.title} <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
-              colaborar?
+              {t.footer.titleHighlight}
             </span>
           </h2>
           
           <p className="text-slate-400 max-w-2xl mx-auto mb-10 text-lg">
-            Escríbeme y hablamos sobre cómo podemos trabajar juntos para dar visibilidad a tu producto entre 
-            <span className="text-white font-semibold"> {config.global.totalProfessionals} profesionales IT</span>.
+            {t.footer.subtitle}{' '}
+            <span className="text-white font-semibold">{config.global.totalProfessionals} {t.footer.professionals}</span>.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -40,28 +42,28 @@ export const Footer = () => {
               className="group inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-bold text-lg rounded-xl transition-all shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-105"
             >
               <Mail className="w-6 h-6" />
-              Hablemos
+              {t.footer.cta}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>
           
           <p className="text-slate-500 text-sm font-mono">
-            // Respuesta garantizada en menos de 48h laborables
+            {t.footer.responseTime}
           </p>
           
           {/* Quick stats reminder */}
           <div className="flex flex-wrap justify-center gap-8 mt-10 pt-8 border-t border-slate-800/50">
             <div className="text-center">
               <p className="text-2xl font-bold text-emerald-400 font-mono">{config.global.totalProfessionals}+</p>
-              <p className="text-xs text-slate-500">Profesionales IT</p>
+              <p className="text-xs text-slate-500">{t.footer.professionals}</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold text-cyan-400 font-mono">{config.global.decisionMakersPercentage}</p>
-              <p className="text-xs text-slate-500">Decision Makers</p>
+              <p className="text-xs text-slate-500">{t.footer.decisionMakers}</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold text-emerald-400 font-mono">{config.audience.retention.averageRetention}</p>
-              <p className="text-xs text-slate-500">Retención Media</p>
+              <p className="text-xs text-slate-500">{t.footer.avgRetention}</p>
             </div>
           </div>
         </div>
@@ -75,7 +77,7 @@ export const Footer = () => {
             <h4 className="text-lg font-bold text-white font-mono">
               <span className="text-emerald-400">$</span> pabpereza
             </h4>
-            <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Media Kit. Built for B2B tech brands.</p>
+            <p className="text-slate-500 text-sm">© {new Date().getFullYear()} {t.footer.copyright}</p>
           </div>
 
           <div className="flex gap-6">

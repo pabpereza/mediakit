@@ -1,15 +1,17 @@
 import { ShieldCheck, Award, Terminal, Briefcase, CheckCircle2 } from 'lucide-react';
 import { useMetricsConfig } from '../hooks/useMetricsConfig';
+import { useLanguage } from '../i18n';
 
 export const AboutAuthority = () => {
   const config = useMetricsConfig();
+  const { t } = useLanguage();
   
   return (
     <section className="py-12 px-6 md:px-12 max-w-7xl mx-auto">
       {/* Section Header - Terminal style */}
       <div className="flex items-center gap-3 mb-8">
         <span className="text-emerald-400 font-mono text-sm">$</span>
-        <h2 className="text-sm font-mono text-emerald-400 uppercase tracking-wider">cat ./about/authority.md</h2>
+        <h2 className="text-sm font-mono text-emerald-400 uppercase tracking-wider">{t.about.command}</h2>
       </div>
 
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 md:p-12 flex flex-col lg:flex-row gap-12 items-start">
@@ -18,19 +20,17 @@ export const AboutAuthority = () => {
         <div className="flex-1 space-y-6">
           <div className="flex items-center gap-3 mb-2">
             <ShieldCheck className="w-6 h-6 text-emerald-400" />
-            <h2 className="text-2xl font-bold text-white font-mono">// Sobre Mí</h2>
+            <h2 className="text-2xl font-bold text-white font-mono">{t.about.title}</h2>
           </div>
           
           <div className="prose prose-invert text-slate-300">
             <p className="text-lg leading-relaxed">
-              Soy <strong className="text-white">Pablo Pérez-Aradros</strong>, 
-              <span className="text-emerald-400 font-semibold"> CISO en Grupo Santander</span> con{' '}
-              <span className="text-white font-semibold">{config.authority.yearsExperience}+ años</span> de experiencia 
-              en seguridad e infraestructura enterprise.
+              {t.about.intro} <strong className="text-white">Pablo Pérez-Aradros</strong>, 
+              <span className="text-emerald-400 font-semibold"> {t.about.role}</span> con{' '}
+              <span className="text-white font-semibold">{config.authority.yearsExperience}+ {t.about.experience}</span> {t.about.experienceText}
             </p>
             <p className="text-slate-400 mt-4">
-              Creo contenido técnico desde la experiencia real del día a día. 
-              Cuando hablo de una herramienta, es porque la he probado y entiendo sus casos de uso.
+              {t.about.description}
             </p>
           </div>
 
@@ -38,31 +38,31 @@ export const AboutAuthority = () => {
           <div className="bg-slate-950/50 border border-slate-800/50 rounded-xl p-6 mt-6">
             <h4 className="text-emerald-400 font-mono text-sm mb-4 flex items-center gap-2">
               <Briefcase className="w-4 h-4" />
-              QUÉ PUEDO APORTAR:
+              {t.about.whatIOffer}
             </h4>
             <ul className="space-y-3 text-sm text-slate-300">
               <li className="flex items-start gap-3">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
-                <span><strong className="text-white">Perspectiva técnica:</strong> Contenido desde la experiencia real en producción</span>
+                <span><strong className="text-white">{t.about.technicalPerspective}</strong> {t.about.technicalPerspectiveDesc}</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
-                <span><strong className="text-white">Contenido duradero:</strong> Tutoriales que siguen siendo útiles con el tiempo</span>
+                <span><strong className="text-white">{t.about.durableContent}</strong> {t.about.durableContentDesc}</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
-                <span><strong className="text-white">Feedback honesto:</strong> Opinión constructiva desde perspectiva de usuario real</span>
+                <span><strong className="text-white">{t.about.honestFeedback}</strong> {t.about.honestFeedbackDesc}</span>
               </li>
             </ul>
           </div>
 
           {/* Certifications - Badges técnicos */}
           <div className="pt-6">
-            <p className="text-xs text-slate-500 font-mono uppercase tracking-wider mb-4">// Certificaciones verificables</p>
+            <p className="text-xs text-slate-500 font-mono uppercase tracking-wider mb-4">{t.about.certifications}</p>
             
             {/* Top Tier - Reconocimientos de Liderazgo */}
             <div className="mb-4">
-              <p className="text-xs text-emerald-400/70 font-mono mb-2">// Reconocimientos de Liderazgo</p>
+              <p className="text-xs text-emerald-400/70 font-mono mb-2">{t.about.leadershipRecognition}</p>
               <div className="flex flex-wrap gap-2">
                 {[
                   { name: 'Docker Captain', color: 'cyan' },
@@ -85,7 +85,7 @@ export const AboutAuthority = () => {
 
             {/* Ciberseguridad Ofensiva */}
             <div className="mb-4">
-              <p className="text-xs text-cyan-400/70 font-mono mb-2">// Ciberseguridad & Auditoría</p>
+              <p className="text-xs text-cyan-400/70 font-mono mb-2">{t.about.cybersecurity}</p>
               <div className="flex flex-wrap gap-2">
                 {[
                   { name: 'OSCP', color: 'cyan' },
@@ -109,7 +109,7 @@ export const AboutAuthority = () => {
 
             {/* Kubernetes & Cloud Native */}
             <div>
-              <p className="text-xs text-emerald-400/70 font-mono mb-2">// Kubernetes & Cloud Native (Linux Foundation)</p>
+              <p className="text-xs text-emerald-400/70 font-mono mb-2">{t.about.kubernetes}</p>
               <div className="flex flex-wrap gap-2">
                 {[
                   { name: 'CKS', color: 'emerald' },
@@ -139,17 +139,16 @@ export const AboutAuthority = () => {
         <div className="flex-1 bg-slate-950/50 rounded-xl p-8 border border-slate-800/50 w-full">
           <div className="flex items-center gap-3 mb-6">
             <Terminal className="w-6 h-6 text-cyan-400" />
-            <h3 className="text-xl font-bold text-white font-mono">Perfil de Audiencia</h3>
+            <h3 className="text-xl font-bold text-white font-mono">{t.about.audienceProfile}</h3>
           </div>
           
           <p className="text-slate-400 mb-8">
-            Mi audiencia <span className="text-white">no son estudiantes buscando tutoriales básicos</span>. 
-            Son profesionales con presupuesto que necesitan herramientas para resolver problemas reales.
+            {t.about.audienceIntro} <span className="text-white">{t.about.audienceNotStudents}</span>. {t.about.audienceDesc}
           </p>
 
           {/* Stack Tecnológico de la Audiencia */}
           <div className="mb-8">
-            <p className="text-xs text-slate-500 font-mono uppercase tracking-wider mb-4">// Stack preferido de la audiencia</p>
+            <p className="text-xs text-slate-500 font-mono uppercase tracking-wider mb-4">{t.about.techStack}</p>
             <div className="grid grid-cols-2 gap-3">
               {[
                 { name: 'Kubernetes', pct: config.audience.techStack.kubernetes },
@@ -172,9 +171,9 @@ export const AboutAuthority = () => {
 
           {/* Tipo de Empresas */}
           <div>
-            <p className="text-xs text-slate-500 font-mono uppercase tracking-wider mb-4">// Empleadores típicos de la audiencia</p>
+            <p className="text-xs text-slate-500 font-mono uppercase tracking-wider mb-4">{t.about.employers}</p>
             <div className="flex flex-wrap gap-2">
-              {['Startups SaaS', 'Consultoras IT', 'Banca & Fintech', 'E-commerce', 'Gobierno/Sector Público'].map((type) => (
+              {[t.employers.startups, t.employers.consultants, t.employers.banking, t.employers.ecommerce, t.employers.government].map((type) => (
                 <span 
                   key={type} 
                   className="px-3 py-1 bg-slate-900 border border-slate-700 rounded-full text-xs text-slate-400"

@@ -1,16 +1,18 @@
 import { Users, Eye, Activity, PlaySquare, MapPin, Briefcase, TrendingUp, Clock, Target, BarChart3 } from 'lucide-react';
 import { useYouTubeMetrics } from '../hooks/useYouTubeMetrics';
 import { useMetricsConfig } from '../hooks/useMetricsConfig';
+import { useLanguage } from '../i18n';
 
 export const MetricsDashboard = () => {
   const { metrics, loading } = useYouTubeMetrics();
   const config = useMetricsConfig();
+  const { t } = useLanguage();
 
   if (loading) {
     return (
       <div className="py-12 text-center font-mono">
         <span className="text-emerald-400">$</span>
-        <span className="text-slate-500 ml-2">fetching real-time metrics...</span>
+        <span className="text-slate-500 ml-2">{t.common.loading}</span>
         <span className="animate-pulse text-emerald-400 ml-1">▌</span>
       </div>
     );
@@ -23,13 +25,13 @@ export const MetricsDashboard = () => {
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900/80 border border-emerald-500/30 rounded-full font-mono text-sm">
           <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
           <span className="text-emerald-400">$</span>
-          <span className="text-slate-400">analytics --mode=business</span>
+          <span className="text-slate-400">{t.metrics.sectionBadge}</span>
         </div>
         <h2 className="text-3xl md:text-4xl font-bold text-white">
-          Datos <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Transparentes</span>
+          {t.metrics.sectionTitle} <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">{t.metrics.sectionTitleHighlight}</span>
         </h2>
         <p className="text-slate-400 max-w-2xl mx-auto">
-          Métricas reales del canal para que puedas tomar una decisión informada.
+          {t.metrics.sectionSubtitle}
         </p>
       </div>
 
@@ -37,39 +39,39 @@ export const MetricsDashboard = () => {
       <div>
         <h3 className="text-sm font-mono text-emerald-400 uppercase tracking-wider mb-6 flex items-center gap-3">
           <BarChart3 className="w-4 h-4" />
-          Métricas de Canal
+          {t.metrics.channelMetrics}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <MetricCard 
             icon={<Users className="w-5 h-5 text-emerald-400" />}
-            label="Suscriptores Activos"
+            label={t.metrics.subscribers}
             value={metrics.subscriberCount}
-            subtext="Profesionales IT verificados"
-            trend={`${config.channel.subscribersTrend} últimos 6 meses`}
+            subtext={t.metrics.subscribersSubtext}
+            trend={`${config.channel.subscribersTrend} ${t.metrics.last6Months}`}
             trendUp={true}
           />
           <MetricCard 
             icon={<Eye className="w-5 h-5 text-cyan-400" />}
-            label="Visualizaciones Totales"
+            label={t.metrics.views}
             value={metrics.viewCount}
-            subtext="Contenido evergreen"
-            trend={`${config.channel.monthlyViews} mensuales`}
+            subtext={t.metrics.viewsSubtext}
+            trend={`${config.channel.monthlyViews} ${t.metrics.monthlyLabel}`}
             trendUp={true}
           />
           <MetricCard 
             icon={<Activity className="w-5 h-5 text-emerald-400" />}
-            label="Engagement Rate"
+            label={t.metrics.engagement}
             value={metrics.engagementRate}
-            subtext="vs 2-3% promedio del sector"
-            trend="Top 10% en nicho tech"
+            subtext={t.metrics.engagementSubtext}
+            trend={t.metrics.engagementTrend}
             trendUp={true}
           />
           <MetricCard 
             icon={<PlaySquare className="w-5 h-5 text-cyan-400" />}
-            label="Biblioteca de Vídeos"
+            label={t.metrics.videos}
             value={metrics.videoCount}
-            subtext="Deep dives técnicos"
-            trend={`${config.channel.newVideosPerMonth} nuevos/mes`}
+            subtext={t.metrics.videosSubtext}
+            trend={`${config.channel.newVideosPerMonth} ${t.metrics.newPerMonth}`}
             trendUp={true}
           />
         </div>
@@ -79,7 +81,7 @@ export const MetricsDashboard = () => {
       <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 md:p-10">
         <h3 className="text-sm font-mono text-cyan-400 uppercase tracking-wider mb-8 flex items-center gap-3">
           <Target className="w-4 h-4" />
-          Calidad de Audiencia — Por qué esto NO es marketing de consumo
+          {t.metrics.audienceQuality}
         </h3>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -89,23 +91,23 @@ export const MetricsDashboard = () => {
             <div className="flex items-center justify-between">
               <h4 className="text-white font-semibold flex items-center gap-2">
                 <Briefcase className="w-4 h-4 text-emerald-400" />
-                Seniority de la Audiencia
+                {t.metrics.seniority}
               </h4>
-              <span className="text-xs text-slate-500 font-mono">// Fuente: encuesta canal 2025</span>
+              <span className="text-xs text-slate-500 font-mono">{t.metrics.senioritySource}</span>
             </div>
             <p className="text-xs text-slate-500">
-              <strong className="text-emerald-400">Por qué importa:</strong> Los seniors y leads tienen capacidad de decisión de compra directa. Un junior puede recomendar, pero un senior firma el contrato.
+              <strong className="text-emerald-400">{t.metrics.seniorityWhy}</strong> {t.metrics.seniorityExplanation}
             </p>
             <div className="space-y-4">
-              <SeniorityBar label="Senior / Staff Engineer" percentage={config.audience.seniority.seniorStaff} color="emerald" />
-              <SeniorityBar label="Lead / Tech Lead / Architect" percentage={config.audience.seniority.leadArchitect} color="cyan" />
-              <SeniorityBar label="Manager / Director / CTO / CISO" percentage={config.audience.seniority.managerDirector} color="emerald" />
-              <SeniorityBar label="Mid-Level Engineer" percentage={config.audience.seniority.midLevel} color="slate" />
-              <SeniorityBar label="Junior / Trainee" percentage={config.audience.seniority.junior} color="slate" />
+              <SeniorityBar label={t.seniority.seniorStaff} percentage={config.audience.seniority.seniorStaff} color="emerald" />
+              <SeniorityBar label={t.seniority.leadArchitect} percentage={config.audience.seniority.leadArchitect} color="cyan" />
+              <SeniorityBar label={t.seniority.managerDirector} percentage={config.audience.seniority.managerDirector} color="emerald" />
+              <SeniorityBar label={t.seniority.midLevel} percentage={config.audience.seniority.midLevel} color="slate" />
+              <SeniorityBar label={t.seniority.junior} percentage={config.audience.seniority.junior} color="slate" />
             </div>
             <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4 mt-4">
               <p className="text-emerald-400 text-sm font-mono">
-                → <span className="text-white font-bold">{config.audience.seniority.seniorOrAboveTotal}</span> de la audiencia tiene nivel Senior o superior
+                → <span className="text-white font-bold">{config.audience.seniority.seniorOrAboveTotal}</span> {t.metrics.seniorOrAbove}
               </p>
             </div>
           </div>
@@ -115,12 +117,12 @@ export const MetricsDashboard = () => {
             <div className="flex items-center justify-between">
               <h4 className="text-white font-semibold flex items-center gap-2">
                 <Users className="w-4 h-4 text-cyan-400" />
-                Cargos Principales (Job Titles)
+                {t.metrics.jobTitles}
               </h4>
-              <span className="text-xs text-slate-500 font-mono">// Top 10 roles</span>
+              <span className="text-xs text-slate-500 font-mono">{t.metrics.jobTitlesSource}</span>
             </div>
             <p className="text-xs text-slate-500">
-              <strong className="text-cyan-400">Por qué importa:</strong> Estos son los perfiles que evalúan, prueban y adquieren herramientas enterprise.
+              <strong className="text-cyan-400">{t.metrics.jobTitlesWhy}</strong> {t.metrics.jobTitlesExplanation}
             </p>
             <div className="grid grid-cols-2 gap-3">
               {[
@@ -151,12 +153,12 @@ export const MetricsDashboard = () => {
           <div className="flex items-center justify-between mb-6">
             <h4 className="text-white font-semibold flex items-center gap-2">
               <MapPin className="w-4 h-4 text-emerald-400" />
-              Distribución Geográfica
+              {t.metrics.geography}
             </h4>
-            <span className="text-xs text-slate-500 font-mono">// YouTube Analytics</span>
+            <span className="text-xs text-slate-500 font-mono">{t.metrics.geographySource}</span>
           </div>
           <p className="text-xs text-slate-500 mb-6">
-            <strong className="text-emerald-400">Por qué importa:</strong> Cobertura del mercado hispanohablante tech completo. Ideal para empresas con presencia en España + LATAM.
+            <strong className="text-emerald-400">{t.metrics.geographyWhy}</strong> {t.metrics.geographyExplanation}
           </p>
           <div className="space-y-4">
             <GeoBar label="🇪🇸 España" percentage={config.audience.geography.spain} color="emerald" />
@@ -164,11 +166,11 @@ export const MetricsDashboard = () => {
             <GeoBar label="🇦🇷 Argentina" percentage={config.audience.geography.argentina} color="emerald" />
             <GeoBar label="🇨🇴 Colombia" percentage={config.audience.geography.colombia} color="cyan" />
             <GeoBar label="🇨🇱 Chile" percentage={config.audience.geography.chile} color="emerald" />
-            <GeoBar label="🌎 Otros LATAM" percentage={config.audience.geography.otherLatam} color="slate" />
+            <GeoBar label={`🌎 ${t.metrics.otherLatam}`} percentage={config.audience.geography.otherLatam} color="slate" />
           </div>
           <div className="bg-slate-800/50 rounded-lg p-4 mt-6">
             <p className="text-slate-400 text-sm">
-              <span className="text-white font-semibold">{config.audience.geography.spainTotal}</span> España + <span className="text-white font-semibold">{config.audience.geography.latamTotal}</span> LATAM = Cobertura total mercado hispano enterprise
+              <span className="text-white font-semibold">{config.audience.geography.spainTotal}</span> España + <span className="text-white font-semibold">{config.audience.geography.latamTotal}</span> LATAM = {t.metrics.geographyCoverage}
             </p>
           </div>
         </div>
@@ -178,12 +180,12 @@ export const MetricsDashboard = () => {
           <div className="flex items-center justify-between mb-6">
             <h4 className="text-white font-semibold flex items-center gap-2">
               <Clock className="w-4 h-4 text-cyan-400" />
-              Retención de Audiencia
+              {t.metrics.retention}
             </h4>
-            <span className="text-xs text-slate-500 font-mono">// Promedio 30 días</span>
+            <span className="text-xs text-slate-500 font-mono">{t.metrics.retentionSource}</span>
           </div>
           <p className="text-xs text-slate-500 mb-6">
-            <strong className="text-cyan-400">Por qué importa:</strong> Alta retención = tu mensaje se ve COMPLETO. No hay skip del patrocinio porque el contenido mantiene enganchada a la audiencia.
+            <strong className="text-cyan-400">{t.metrics.retentionWhy}</strong> {t.metrics.retentionExplanation}
           </p>
           
           {/* Retención Visual */}
@@ -203,18 +205,18 @@ export const MetricsDashboard = () => {
               ))}
             </div>
             <div className="mt-4 pt-3 border-t border-slate-800">
-              <span className="text-xs text-slate-500 font-mono">// Retención por duración del vídeo</span>
+              <span className="text-xs text-slate-500 font-mono">{t.metrics.retentionChart}</span>
             </div>
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-emerald-400 font-mono">{config.audience.retention.averageRetention}</p>
-              <p className="text-xs text-slate-400 mt-1">Retención promedio</p>
+              <p className="text-xs text-slate-400 mt-1">{t.metrics.avgRetention}</p>
             </div>
             <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-cyan-400 font-mono">{config.audience.retention.averageWatchTime}</p>
-              <p className="text-xs text-slate-400 mt-1">Tiempo medio vista</p>
+              <p className="text-xs text-slate-400 mt-1">{t.metrics.avgWatchTime}</p>
             </div>
           </div>
         </div>
