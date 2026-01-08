@@ -9,7 +9,7 @@ import { LanguageProvider } from './i18n';
 function App() {
   return (
     <LanguageProvider>
-      <div id="mediakit-content" className="min-h-screen bg-slate-950 text-slate-50 selection:bg-blue-500/30">
+      <div id="mediakit-content" className="min-h-screen bg-transparent text-slate-50 selection:bg-blue-500/30">
         <LanguageSelector />
         <main className="space-y-12 md:space-y-24 pb-20">
           <Hero />

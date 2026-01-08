@@ -5,13 +5,13 @@ export const LanguageSelector = () => {
 
   return (
     <div className="fixed top-4 right-4 z-50 print:hidden" data-pdf-hide>
-      <div className="flex items-center gap-1 bg-slate-900/90 backdrop-blur border border-slate-800 rounded-lg p-1 font-mono text-sm">
+      <div className="flex items-center gap-1 bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-lg p-1 font-mono text-sm">
         <button
           onClick={() => setLanguage('es')}
           className={`px-3 py-1.5 rounded-md transition-all ${
             language === 'es'
-              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+              : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
           }`}
         >
           ES
@@ -20,8 +20,8 @@ export const LanguageSelector = () => {
           onClick={() => setLanguage('en')}
           className={`px-3 py-1.5 rounded-md transition-all ${
             language === 'en'
-              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+              : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
           }`}
         >
           EN

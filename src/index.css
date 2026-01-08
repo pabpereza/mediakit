@@ -7,8 +7,13 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-50;
+    @apply bg-slate-950 text-slate-100;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-image: linear-gradient(to bottom, rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.85)), url('/fondo-dark.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
   }
 
   /* Terminal/Monospace styling */
@@ -36,20 +41,29 @@
 
   /* Selection color - cyberpunk accent */
   ::selection {
-    @apply bg-emerald-500/30 text-white;
+    @apply bg-blue-500/30 text-white;
   }
 }
 
 @layer components {
   /* Neon glow effects */
-  .glow-emerald {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3),
-                0 0 40px rgba(16, 185, 129, 0.1);
+  .glow-blue {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3),
+                0 0 40px rgba(59, 130, 246, 0.1);
   }
 
-  .glow-cyan {
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3),
-                0 0 40px rgba(6, 182, 212, 0.1);
+  .glow-pink {
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.3),
+                0 0 40px rgba(236, 72, 153, 0.1);
+  }
+
+  /* Glassmorphism effect */
+  .glass {
+    @apply bg-slate-900/40 backdrop-blur-xl border border-white/10;
+  }
+
+  .glass-card {
+    @apply bg-slate-900/35 backdrop-blur-lg border border-white/8;
   }
 
   /* Terminal cursor blink */
@@ -63,12 +77,12 @@
 
   /* Gradient text utility */
   .text-gradient-neon {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400;
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-300 to-pink-400;
   }
 
   /* Card hover effect */
   .card-hover {
-    @apply transition-all duration-300 hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5;
+    @apply transition-all duration-300 hover:border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/5;
   }
 }
 
@@ -163,17 +177,19 @@
   /* Ensure text colors are preserved */
   .text-white { color: #ffffff !important; }
   .text-slate-50 { color: #f8fafc !important; }
+  .text-slate-100 { color: #f1f5f9 !important; }
+  .text-slate-200 { color: #e2e8f0 !important; }
   .text-slate-300 { color: #cbd5e1 !important; }
   .text-slate-400 { color: #94a3b8 !important; }
   .text-slate-500 { color: #64748b !important; }
-  .text-emerald-400 { color: #34d399 !important; }
-  .text-cyan-400 { color: #22d3ee !important; }
+  .text-blue-400 { color: #60a5fa !important; }
+  .text-pink-400 { color: #f472b6 !important; }
 
   /* Background colors */
   .bg-slate-900 { background-color: #0f172a !important; }
   .bg-slate-950 { background-color: #020617 !important; }
-  .bg-emerald-500\/10 { background-color: rgba(16, 185, 129, 0.1) !important; }
-  .bg-cyan-500\/10 { background-color: rgba(6, 182, 212, 0.1) !important; }
+  .bg-blue-500\/10 { background-color: rgba(59, 130, 246, 0.1) !important; }
+  .bg-pink-500\/10 { background-color: rgba(236, 72, 153, 0.1) !important; }
 
   /* Gradient text - fallback to solid color */
   .text-transparent.bg-clip-text {
