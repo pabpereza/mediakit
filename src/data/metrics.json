@@ -52,7 +52,7 @@
       "kubernetes": "75%",
       "docker": "85%",
       "terraform": "40%",
-      "cloudProviders": "AWS 60% / Azure 30%",
+      "cloudProviders": "60% / 30%",
       "cicd": "70%",
       "linux": "95%"
     }
