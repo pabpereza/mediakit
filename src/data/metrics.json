@@ -6,9 +6,9 @@
   },
 
   "channel": {
-    "viewCount": "759K",
-    "videoCount": "196+",
-    "engagementRate": "5.4%",
+    "viewCount": "778K",
+    "videoCount": "202+",
+    "engagementRate": "5.6%",
     "subscribersTrend": "+25%",
     "monthlyViews": "30K",
     "newVideosPerMonth": "4"
@@ -44,7 +44,7 @@
       "latamTotal": "77%"
     },
     "retention": {
-      "averageRetention": "40%",
+      "averageRetention": "45%",
       "averageWatchTime": "4:30",
       "retentionCurve": [95, 85, 75, 65, 60, 55, 50, 45, 40, 35]
     },
@@ -59,7 +59,7 @@
   },
 
   "global": {
-    "totalProfessionals": "20.3K",
+    "totalProfessionals": "20.6K",
     "decisionMakersPercentage": "15%"
   },
 
