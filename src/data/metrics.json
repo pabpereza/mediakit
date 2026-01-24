@@ -59,11 +59,7 @@
   },
 
   "global": {
-<<<<<<< HEAD
     "totalProfessionals": "21K",
-=======
-    "totalProfessionals": "20.6K",
->>>>>>> 3b66555e14ba5bc7c026558ae5f53201d9b5a365
     "decisionMakersPercentage": "15%"
   },
 
