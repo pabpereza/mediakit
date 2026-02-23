@@ -4,7 +4,6 @@
     "lastUpdated": "2026-01-07",
     "version": "1.0.0"
   },
-
   "channel": {
     "viewCount": "793K",
     "videoCount": "203+",
@@ -13,7 +12,6 @@
     "monthlyViews": "40K",
     "newVideosPerMonth": "4"
   },
-
   "audience": {
     "seniority": {
       "seniorStaff": "35%",
@@ -46,7 +44,18 @@
     "retention": {
       "averageRetention": "45%",
       "averageWatchTime": "4:30",
-      "retentionCurve": [95, 85, 75, 65, 60, 55, 50, 45, 40, 35]
+      "retentionCurve": [
+        95,
+        85,
+        75,
+        65,
+        60,
+        55,
+        50,
+        45,
+        40,
+        35
+      ]
     },
     "techStack": {
       "kubernetes": "75%",
@@ -57,20 +66,16 @@
       "linux": "95%"
     }
   },
-
   "global": {
     "totalProfessionals": "21K",
     "decisionMakersPercentage": "15%"
   },
-
   "hero": {
     "seniorLeadPercentage": "50%"
   },
-
   "authority": {
     "yearsExperience": "9"
   },
-
   "sponsorships": {
     "linkedinNetwork": "4.000"
   }
