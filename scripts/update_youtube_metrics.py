@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Update YouTube channel metrics (subscriber count and video count) in metrics.json.
+"""Update YouTube channel metrics (subscriber count, video count, and total views) in metrics.json.
 
 Fetches data directly from the YouTube channel page without requiring an API key.
 Run this script from the repository root:
@@ -122,8 +122,47 @@ def get_video_count(data: dict, html: str) -> str | None:
     return None
 
 
-def update_metrics_file(subscribers: str | None, video_count: str | None) -> None:
-    """Write updated subscriber count and video count to metrics.json."""
+def get_view_count(data: dict, html: str) -> str | None:
+    """Extract total view count from ytInitialData or raw HTML."""
+    # microformat is the most reliable source for raw view count
+    view_count = (
+        data.get("microformat", {})
+        .get("microformatDataRenderer", {})
+        .get("viewCount")
+    )
+    if view_count:
+        return str(view_count)
+
+    # pageHeaderRenderer layout (newer YouTube UI)
+    header = data.get("header", {})
+    page_header = header.get("pageHeaderRenderer", {})
+    metadata_rows = (
+        page_header.get("content", {})
+        .get("pageHeaderViewModel", {})
+        .get("metadata", {})
+        .get("contentMetadataViewModel", {})
+        .get("metadataRows", [])
+    )
+    for row in metadata_rows:
+        for part in row.get("metadataParts", []):
+            text = part.get("text", {}).get("content", "")
+            if "view" in text.lower():
+                m = re.match(r"([\d,.\s]+)", text.strip())
+                if m:
+                    return m.group(1).strip().replace(",", "").replace(".", "").replace(" ", "")
+
+    # Fallback: direct regex on raw HTML
+    m = re.search(r'"viewCount"\s*:\s*"(\d+)"', html)
+    if m:
+        return m.group(1)
+
+    return None
+
+
+def update_metrics_file(
+    subscribers: str | None, video_count: str | None, view_count: str | None
+) -> None:
+    """Write updated subscriber count, video count, and total views to metrics.json."""
     with open(METRICS_FILE, "r", encoding="utf-8") as f:
         metrics = json.load(f)
 
@@ -135,6 +174,9 @@ def update_metrics_file(subscribers: str | None, video_count: str | None) -> Non
     if video_count and metrics["channel"]["videoCount"] != video_count:
         metrics["channel"]["videoCount"] = video_count
         changed = True
+    if view_count and metrics["channel"]["viewCount"] != view_count:
+        metrics["channel"]["viewCount"] = view_count
+        changed = True
 
     if changed:
         metrics["_meta"]["lastUpdated"] = date.today().isoformat()
@@ -142,7 +184,8 @@ def update_metrics_file(subscribers: str | None, video_count: str | None) -> Non
             json.dump(metrics, f, indent=2, ensure_ascii=False)
             f.write("\n")
         print(
-            f"metrics.json updated: subscribers={subscribers!r}, videos={video_count!r}"
+            f"metrics.json updated: subscribers={subscribers!r}, "
+            f"videos={video_count!r}, views={view_count!r}"
         )
     else:
         print("No changes to metrics.json (values unchanged)")
@@ -164,14 +207,15 @@ def main() -> None:
 
     subscribers = get_subscriber_count(data, html)
     video_count = get_video_count(data, html)
+    view_count = get_view_count(data, html)
 
-    print(f"Extracted: subscribers={subscribers!r}, videos={video_count!r}")
+    print(f"Extracted: subscribers={subscribers!r}, videos={video_count!r}, views={view_count!r}")
 
-    if not subscribers and not video_count:
+    if not subscribers and not video_count and not view_count:
         print("ERROR: Could not extract any metrics from page", file=sys.stderr)
         sys.exit(1)
 
-    update_metrics_file(subscribers, video_count)
+    update_metrics_file(subscribers, video_count, view_count)
 
 
 if __name__ == "__main__":
