@@ -23,6 +23,8 @@ jobs:
           python-version: '3.x'
 
       - name: Fetch YouTube metrics and update metrics.json
+        env:
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
         run: python scripts/update_youtube_metrics.py
 
       - name: Commit updated metrics
