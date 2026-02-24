@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Update YouTube metrics (subscribers and video count) in metrics.json
+Update YouTube metrics (subscribers, video count and total view count) in metrics.json
 without requiring a YouTube Data API key.
 
 Uses yt-dlp to scrape channel statistics directly from YouTube.
@@ -35,8 +35,8 @@ def format_subscriber_count(n: int) -> str:
     return str(n)
 
 
-def fetch_channel_stats() -> tuple[int, int]:
-    """Return (subscriber_count, video_count) by scraping the YouTube channel."""
+def fetch_channel_stats() -> tuple[int, int, int]:
+    """Return (subscriber_count, video_count, view_count) by scraping the YouTube channel."""
     opts = {
         "quiet": True,
         "no_warnings": True,
@@ -51,16 +51,19 @@ def fetch_channel_stats() -> tuple[int, int]:
 
     subscriber_count = info.get("channel_follower_count")
     video_count = info.get("playlist_count")
+    view_count = info.get("view_count")
 
     if subscriber_count is None:
         raise RuntimeError("Could not find 'channel_follower_count' in yt-dlp output")
     if video_count is None:
         raise RuntimeError("Could not find 'playlist_count' in yt-dlp output")
+    if view_count is None:
+        raise RuntimeError("Could not find 'view_count' in yt-dlp output")
 
-    return int(subscriber_count), int(video_count)
+    return int(subscriber_count), int(video_count), int(view_count)
 
 
-def update_metrics(subscriber_count: int, video_count: int) -> bool:
+def update_metrics(subscriber_count: int, video_count: int, view_count: int) -> bool:
     """
     Update metrics.json with new values.
     Returns True if the file was changed, False if values are identical.
@@ -70,17 +73,27 @@ def update_metrics(subscriber_count: int, video_count: int) -> bool:
 
     new_subscribers = format_subscriber_count(subscriber_count)
     new_video_count = f"{video_count}+"
+    new_view_count = format_subscriber_count(view_count)
     today = date.today().isoformat()
 
     old_subscribers = data["global"]["totalProfessionals"]
     old_video_count = data["channel"]["videoCount"]
+    old_view_count = data["channel"]["viewCount"]
 
-    if old_subscribers == new_subscribers and old_video_count == new_video_count:
-        print(f"No changes: subscribers={new_subscribers}, videos={new_video_count}")
+    if (
+        old_subscribers == new_subscribers
+        and old_video_count == new_video_count
+        and old_view_count == new_view_count
+    ):
+        print(
+            f"No changes: subscribers={new_subscribers}, videos={new_video_count}, "
+            f"views={new_view_count}"
+        )
         return False
 
     data["global"]["totalProfessionals"] = new_subscribers
     data["channel"]["videoCount"] = new_video_count
+    data["channel"]["viewCount"] = new_view_count
     data["_meta"]["lastUpdated"] = today
 
     with open(METRICS_FILE, "w", encoding="utf-8") as f:
@@ -89,7 +102,8 @@ def update_metrics(subscriber_count: int, video_count: int) -> bool:
 
     print(
         f"Updated metrics: subscribers {old_subscribers} -> {new_subscribers}, "
-        f"videos {old_video_count} -> {new_video_count}"
+        f"videos {old_video_count} -> {new_video_count}, "
+        f"views {old_view_count} -> {new_view_count}"
     )
     return True
 
@@ -97,13 +111,13 @@ def update_metrics(subscriber_count: int, video_count: int) -> bool:
 def main() -> None:
     print(f"Fetching YouTube stats for {CHANNEL_URL} ...")
     try:
-        subscriber_count, video_count = fetch_channel_stats()
+        subscriber_count, video_count, view_count = fetch_channel_stats()
     except Exception as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         sys.exit(1)
 
-    print(f"Raw stats: subscribers={subscriber_count}, videos={video_count}")
-    update_metrics(subscriber_count, video_count)
+    print(f"Raw stats: subscribers={subscriber_count}, videos={video_count}, views={view_count}")
+    update_metrics(subscriber_count, video_count, view_count)
 
 
 if __name__ == "__main__":
