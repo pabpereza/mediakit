@@ -159,6 +159,31 @@ def get_view_count(data: dict, html: str) -> str | None:
     return None
 
 
+def format_compact_count(value: str | None) -> str | None:
+    """Format a numeric count into a compact string (e.g., 793000 -> 793K)."""
+    if not value:
+        return None
+    if re.search(r"[A-Za-z]", value):
+        return value
+    digits = re.sub(r"\D", "", value)
+    if not digits:
+        return value
+    number = int(digits)
+    if number >= 1_000_000_000:
+        compact = number / 1_000_000_000
+        suffix = "B"
+    elif number >= 1_000_000:
+        compact = number / 1_000_000
+        suffix = "M"
+    elif number >= 1_000:
+        compact = number / 1_000
+        suffix = "K"
+    else:
+        return str(number)
+    formatted = f"{compact:.1f}".rstrip("0").rstrip(".")
+    return f"{formatted}{suffix}"
+
+
 def update_metrics_file(
     subscribers: str | None, video_count: str | None, view_count: str | None
 ) -> None:
@@ -207,7 +232,7 @@ def main() -> None:
 
     subscribers = get_subscriber_count(data, html)
     video_count = get_video_count(data, html)
-    view_count = get_view_count(data, html)
+    view_count = format_compact_count(get_view_count(data, html))
 
     print(f"Extracted: subscribers={subscribers!r}, videos={video_count!r}, views={view_count!r}")
 
