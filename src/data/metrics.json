@@ -1,12 +1,12 @@
 {
   "_meta": {
     "description": "Métricas centralizadas del Media Kit - Editable por automatismos",
-    "lastUpdated": "2026-03-02",
+    "lastUpdated": "2026-03-09",
     "version": "1.0.0"
   },
   "channel": {
-    "viewCount": "854.8K",
-    "videoCount": "212",
+    "viewCount": "866K",
+    "videoCount": "214",
     "engagementRate": "5.6%",
     "subscribersTrend": "+25%",
     "monthlyViews": "40K",
@@ -67,7 +67,7 @@
     }
   },
   "global": {
-    "totalProfessionals": "23.4K",
+    "totalProfessionals": "23.9K",
     "decisionMakersPercentage": "15%"
   },
   "hero": {
