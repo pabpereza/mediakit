@@ -75,6 +75,37 @@ export const MetricsDashboard = () => {
             trendUp={true}
           />
         </div>
+        {config.xquik && (
+          <div className="mt-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-xl p-6">
+            <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+              <div>
+                <h4 className="text-white font-semibold flex items-center gap-2">
+                  <Activity className="w-4 h-4 text-blue-400" />
+                  {t.metrics.xquikSource}
+                </h4>
+                <p className="text-xs text-slate-400 mt-2">{t.metrics.xquikSourceText}</p>
+              </div>
+              <span className="text-xs text-blue-400 font-mono">{config.xquik.source}</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
+              <div>
+                <p className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-2">{t.metrics.xquikMetrics}</p>
+                <div className="flex flex-wrap gap-2">
+                  {config.xquik.metrics.map((metric) => (
+                    <span key={metric} className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-200 text-xs">
+                      {metric}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-2">{t.metrics.xquikWorkflow}</p>
+                <p className="text-sm text-slate-300">{config.xquik.workflow}</p>
+                <p className="text-xs text-slate-500 mt-2 font-mono">lastReviewed={config.xquik.lastReviewed}</p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* SECCIÓN CRÍTICA: Métricas B2B - Calidad de Audiencia */}
@@ -303,5 +334,4 @@ const GeoBar = ({ label, percentage, color }: { label: string, percentage: strin
     </div>
   );
 };
-
 

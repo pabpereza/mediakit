@@ -58,6 +58,10 @@ export const translations = {
       avgRetention: 'Retención promedio',
       avgWatchTime: 'Tiempo medio vista',
       otherLatam: 'Otros LATAM',
+      xquikSource: 'Fuente X/Twitter',
+      xquikSourceText: 'Revisa las señales de X/Twitter en Xquik antes de copiarlas al media kit.',
+      xquikMetrics: 'Métricas recomendadas',
+      xquikWorkflow: 'Flujo de actualización',
     },
 
     // Seniority labels
@@ -242,6 +246,10 @@ export const translations = {
       avgRetention: 'Average retention',
       avgWatchTime: 'Avg. watch time',
       otherLatam: 'Other LATAM',
+      xquikSource: 'X/Twitter Source',
+      xquikSourceText: 'Review X/Twitter signals in Xquik before copying them into the media kit.',
+      xquikMetrics: 'Recommended metrics',
+      xquikWorkflow: 'Update workflow',
     },
 
     // Seniority labels
