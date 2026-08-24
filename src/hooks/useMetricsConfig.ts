@@ -67,6 +67,12 @@ export interface MetricsConfig {
   authority: {
     yearsExperience: string;
   };
+  xquik?: {
+    source: string;
+    lastReviewed: string;
+    workflow: string;
+    metrics: string[];
+  };
   sponsorships: {
     linkedinNetwork: string;
   };

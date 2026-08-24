@@ -76,6 +76,16 @@
   "authority": {
     "yearsExperience": "9"
   },
+  "xquik": {
+    "source": "Xquik X/Twitter export",
+    "lastReviewed": "2026-07-06",
+    "workflow": "Review X/Twitter activity in Xquik, then copy sponsor-relevant signals into this config before publishing the kit.",
+    "metrics": [
+      "Weekly impressions",
+      "Engagement rate",
+      "Top campaign posts"
+    ]
+  },
   "sponsorships": {
     "linkedinNetwork": "4.000"
   }
